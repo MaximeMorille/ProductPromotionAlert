@@ -8,6 +8,7 @@
         <!-- sample definition
         <loop name="MySuperLoop" class="ProductPromotionAlert\Loop\MySuperLoop" />
         -->
+        <loop class="ProductPromotionAlert\Loop\CustomerProductResponseLoop" name="customer-product-response" />
     </loops>
 
     <forms>
