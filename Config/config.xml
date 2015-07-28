@@ -15,6 +15,7 @@
         <!--
         <form name="MyFormName" class="ProductPromotionAlert\Form\MySuperForm" />
         -->
+        <form name="product-promotion-alert.customer.subscription" class="ProductPromotionAlert\Form\CustomerSubscription" />
     </forms>
 
     <commands>
