@@ -1,0 +1,7 @@
+{if $customer }
+    {form name="product-promotion-alert.customer.subscription" }
+        <form method="post" action="{url path="/product/subscribe" id=$product_id}">
+            <button type="submit" class="btn btn-sm">Subscribe</button>
+        </form>
+    {/form}
+{/if}
