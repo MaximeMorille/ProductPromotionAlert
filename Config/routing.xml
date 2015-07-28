@@ -28,4 +28,8 @@
     </route>
     -->
 
+    <route id="subscription" path="/product/subscribe" methods="post" >
+        <default key="_controller">ProductPromotionAlert\Controller\SubscriptionController::createSubscription</default>
+    </route>
+
 </routes>
