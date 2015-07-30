@@ -21,5 +21,11 @@ class SubscriptionController extends BaseFrontController
         $customerProduct->setCustomerId($customer->getId());
         $customerProduct->setProductId($id);
         $customerProduct->save();
+
+        $product = $customerProduct->getProduct();
+
+        $response = $this->generateRedirect($product->getUrl());
+
+        return $response;
     }
 }
