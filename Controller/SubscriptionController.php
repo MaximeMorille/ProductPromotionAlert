@@ -2,6 +2,7 @@
 
 namespace ProductPromotionAlert\Controller;
 
+use ProductPromotionAlert\Model\CustomerProduct;
 use Thelia\Controller\Front\BaseFrontController;
 use Thelia\Model\Product;
 
@@ -13,8 +14,12 @@ class SubscriptionController extends BaseFrontController
     public function createSubscription()
     {
         $request = $this->getRequest();
-        print_r($request->get("id"));
+        $id = $request->get("id");
+        $customer = $this->getSecurityContext()->getCustomerUser();
 
-        Product::
+        $customerProduct = new CustomerProduct();
+        $customerProduct->setCustomerId($customer->getId());
+        $customerProduct->setProductId($id);
+        $customerProduct->save();
     }
 }
