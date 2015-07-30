@@ -49,12 +49,8 @@ class ProductPromotionAlert extends BaseModule
                 $locale = $language->getLocale();
 
                 $message->setLocale($locale);
-                $message->setSubject(
-                    $this->trans('Your product {$order_ref} is promoted.', [], $locale)
-                );
-                $message->setTitle(
-                    $this->trans('Product promotion message', [], $locale)
-                );
+                $message->setSubject('Your product {$order_ref} is promoted.');
+                $message->setTitle('Product promotion message');
             }
 
             $message->save();
