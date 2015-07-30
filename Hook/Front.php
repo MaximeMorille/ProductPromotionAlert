@@ -12,8 +12,11 @@ class Front extends BaseHook
     {
         $product_id = $blockEvent->getArgument("product");
         $customer = $this->getCustomer();
-        $html = $this->render("subscribe-action.html", ["product_id" => $product_id, "customer_id" => $customer->getId()]);
 
-        $blockEvent->add($html);
+        if($customer) {
+            $html = $this->render("subscribe-action.html",
+                ["product_id" => $product_id, "customer_id" => $customer->getId()]);
+            $blockEvent->add($html);
+        }
     }
 }

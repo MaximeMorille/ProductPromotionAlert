@@ -1,9 +1,14 @@
 {if $customer_id }
-    {loop type="customer-product-response" name="testloop" product_id={$product_id} customer_id="{$customer_id}"}
+    {loop type="customer-product-response" name="alertloop" product_id={$product_id} customer_id="{$customer_id}"}
     {/loop}
-    {elseloop rel="testloop"}
+    {ifloop rel="alertloop"}
+        {intl l="You will get a notification when this product will be promoted."}
+    {/ifloop}
+    {elseloop rel="alertloop"}
+        {* useless form, there is no field to validate *}
         {form name="product-promotion-alert.customer.subscription" }
             <form method="post" action="{url path="/product/subscribe" id=$product_id}">
+                <p>{intl l="Do you want a notification when this product will be on sale ?"}</p>
                 <button type="submit" class="btn btn_add_to_cart">Subscribe</button>
             </form>
         {/form}
