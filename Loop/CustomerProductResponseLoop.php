@@ -3,6 +3,7 @@
 namespace ProductPromotionAlert\Loop;
 
 use ProductPromotionAlert\Model\CustomerProductQuery;
+use Propel\Runtime\ActiveQuery\Criteria;
 use Thelia\Core\Template\Element\BaseLoop;
 use Thelia\Core\Template\Element\LoopResult;
 use Thelia\Core\Template\Element\LoopResultRow;
@@ -26,6 +27,8 @@ class CustomerProductResponseLoop extends BaseLoop implements PropelSearchLoopIn
             $loopResultRow
                 ->set("PRODUCT_ID", $productSubscriber->getProductId())
                 ->set("CUSTOMER_ID", $productSubscriber->getCustomerId())
+                ->set("CUSTOMER", $productSubscriber->getCustomer())
+                ->set("PRODUCT", $productSubscriber->getProduct())
             ;
 
             $loopResult->addRow($loopResultRow);
@@ -62,7 +65,8 @@ class CustomerProductResponseLoop extends BaseLoop implements PropelSearchLoopIn
     protected function getArgDefinitions()
     {
         return new ArgumentCollection(
-            Argument::createIntListTypeArgument('product_id')
+            Argument::createIntListTypeArgument('product_id'),
+            Argument::createIntListTypeArgument('customer_id')
         );
     }
 
@@ -73,13 +77,14 @@ class CustomerProductResponseLoop extends BaseLoop implements PropelSearchLoopIn
      */
     public function buildModelCriteria()
     {
-        $search = CustomerProductQuery::create()
-            ->useProductQuery()
-            ->useCustomerQuery()
-            ->endUse();
+        $search = CustomerProductQuery::create();
 
         if (null !== $id = $this->getProductId()) {
             $search->filterByProductId($id, Criteria::IN);
+        }
+
+        if (null !== $id = $this->getCustomerId()) {
+            $search->filterByCustomerId($id, Criteria::IN);
         }
 
         return $search;

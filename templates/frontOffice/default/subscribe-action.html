@@ -1,7 +1,11 @@
-{if $customer }
-    {form name="product-promotion-alert.customer.subscription" }
-        <form method="post" action="{url path="/product/subscribe" id=$product_id}">
-            <button type="submit" class="btn btn-sm">Subscribe</button>
-        </form>
-    {/form}
+{if $customer_id }
+    {loop type="customer-product-response" name="testloop" product_id={$product_id} customer_id="{$customer_id}"}
+    {/loop}
+    {elseloop rel="testloop"}
+        {form name="product-promotion-alert.customer.subscription" }
+            <form method="post" action="{url path="/product/subscribe" id=$product_id}">
+                <button type="submit" class="btn btn_add_to_cart">Subscribe</button>
+            </form>
+        {/form}
+    {/elseloop}
 {/if}
