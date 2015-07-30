@@ -12,6 +12,9 @@
 
 namespace ProductPromotionAlert;
 
+use Thelia\Model\LangQuery;
+use Thelia\Model\Message;
+use Thelia\Model\MessageQuery;
 use Thelia\Module\BaseModule;
 use Propel\Runtime\Connection\ConnectionInterface;
 use Thelia\Install\Database;
@@ -19,16 +22,42 @@ use Thelia\Install\Database;
 class ProductPromotionAlert extends BaseModule
 {
 
-    public function preActivation(ConnectionInterface $con = null)
+    public function postActivation(ConnectionInterface $con = null)
     {
-        if (! $this->getConfigValue('is_initialized', false)) {
-            $database = new Database($con);
+        $database = new Database($con);
+        $database->insertSql(null, array(__DIR__ . '/Config/thelia.sql'));
 
-            $database->insertSql(null, array(__DIR__ . '/Config/sql/create.sql'));
+        $this->initializeMessage();
+    }
 
-            $this->setConfigValue('is_initialized', true);
+    protected function initializeMessage()
+    {
+        // create new message
+        if (null === MessageQuery::create()->findOneByName('mail_product_promotion_alert')) {
+            $message = new Message();
+            $message
+                ->setName('mail_product_promotion_alert')
+                ->setHtmlTemplateFileName('mail_product_promotion_alert.html')
+                ->setHtmlLayoutFileName('')
+                ->setTextTemplateFileName('mail_product_promotion_alert.txt')
+                ->setTextLayoutFileName('')
+                ->setSecured(0);
+
+            $languages = LangQuery::create()->find();
+
+            foreach ($languages as $language) {
+                $locale = $language->getLocale();
+
+                $message->setLocale($locale);
+                $message->setSubject(
+                    $this->trans('Your product {$order_ref} is promoted.', [], $locale)
+                );
+                $message->setTitle(
+                    $this->trans('Product promotion message', [], $locale)
+                );
+            }
+
+            $message->save();
         }
-
-        return true;
     }
 }
