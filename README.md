@@ -1,6 +1,6 @@
-# Carousel
+# Product Promotion Alert
 
-This module for Thelia add a customizable carousel on your home page. You can upload you own image and overload the default template in your template for using the carousel.
+This module for Thelia add an email notification to customers who suscibed to a product.
 
 ## Installation
 
@@ -10,7 +10,3 @@ This module for Thelia add a customizable carousel on your home page. You can up
 ## Usage
 
 A client can subscribe to a product, in order to get emails when this product is promoted.
-
-## Hook
-
-The carousel is installed in the "Home page - main area" (home.body) hook.
