@@ -1,0 +1,10 @@
+{default_translation_domain domain="product-promotion-alert.email.default"}
+{default_locale locale={$locale}}
+
+{intl l="Hi %name," name={$customer_firstname}}
+
+{intl l="The product %title (%ref) is currently in promotion." title={$product_title} ref={$product_url}}
+
+{intl l="The product"}{intl l=" %title (%url) " title={$product_title} url={$product_url}}{intl l="is currently in promotion."}
+
+{intl l="Best Regards."}

@@ -1,0 +1,25 @@
+{extends file="email-layout.tpl"}
+
+{* Subject  *}
+{block name="email-subject"}
+{default_translation_domain domain="productpromotionalert.email.default"}
+{default_locale locale={$locale}}
+{intl l="The product %title is currently in promotion." title={$product_title}}
+{/block}
+
+{* Title  *}
+{block name="email-title"}
+{default_translation_domain domain="productpromotionalert.email.default"}
+{default_locale locale={$locale}}
+{intl l="Hi %name," name={$customer_firstname}}
+{/block}
+
+{* Content  *}
+{block name="email-content"}
+{default_translation_domain domain="productpromotionalert.email.default"}
+{default_locale locale={$locale}}
+
+<p>{intl l="The product"}<a href="{$product_url}">{intl l=" %title " title={$product_title}}</a>{intl l="is currently in promotion."}</p>
+
+<p>{intl l="Best Regards."}</p>
+{/block}
